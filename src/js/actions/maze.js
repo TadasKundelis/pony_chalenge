@@ -1,29 +1,31 @@
+import * as actionTypes from '../constants/actionTypes';
+
 export const buildMaze = () => ({
-  type: 'BUILD_MAZE'
+  type: actionTypes.BUILD_MAZE
 });
 
 export const resetMaze = () => ({
-  type: 'RESET_MAZE'
+  type: actionTypes.RESET_MAZE
 });
 
 export const setProp = (prop, value) => ({
-  type: 'SET_PROP',
+  type: actionTypes.SET_PROP,
   prop,
   value
 });
 
 export const updatePositions = (ponyPos, domokunPos) => ({
-  type: 'UPDATE_POSITIONS',
+  type: actionTypes.UPDATE_POSITIONS,
   ponyPos,
   domokunPos
 });
 
 export const findPonyPath = () => ({
-  type: 'FIND_PONY_PATH'
+  type: actionTypes.FIND_PONY_PATH
 });
 
 export const createMazeHelper = (cellData, positions) => ({
-  type: 'CREATE_MAZE_HELPER',
+  type: actionTypes.CREATE_MAZE_HELPER,
   cellData,
   positions
 });

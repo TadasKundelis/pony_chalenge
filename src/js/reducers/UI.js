@@ -1,3 +1,5 @@
+import * as actionTypes from '../constants/actionTypes';
+
 const initialState = {
   displayMaze: false,
   displayOptions: true,
@@ -7,16 +9,15 @@ const initialState = {
 
 const UIReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'RESET_UI':
+    case actionTypes.RESET_UI:
       return initialState;
-    case 'UPDATE_MAZE_UI':
+    case actionTypes.UPDATE_MAZE_UI:
       return { ...state, displayMaze: action.value };
-    case 'UPDATE_OPTIONS_UI':
+    case actionTypes.UPDATE_OPTIONS_UI:
       return { ...state, displayOptions: action.value };
-    case 'UPDATE_RESULT_UI':
-      console.log(action.value);
+    case actionTypes.UPDATE_RESULT_UI:
       return { ...state, displayResult: action.value };
-    case 'UPDATE_PLAYBTN_UI':
+    case actionTypes.UPDATE_PLAYBTN_UI:
       return { ...state, displayPlayBtn: action.value };
     default:
       return state;

@@ -1,4 +1,5 @@
 import MazeHelper from '../utilities/MazeHelper';
+import * as actionTypes from '../constants/actionTypes';
 
 const initialState = {
   maze: null,
@@ -13,13 +14,13 @@ const initialState = {
 
 const mazeReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'RESET_MAZE':
+    case actionTypes.RESET_MAZE:
       return initialState;
-    case 'SET_PROP': {
+    case actionTypes.SET_PROP: {
       const { prop, value } = action;
       return { ...state, [prop]: value };
     }
-    case 'CREATE_MAZE_HELPER': {
+    case actionTypes.CREATE_MAZE_HELPER: {
       const { width, height } = state;
       const {
         positions, cellData
@@ -27,21 +28,22 @@ const mazeReducer = (state = initialState, action) => {
       const mazeHelper = new MazeHelper(cellData, positions, width, height);
       return { ...state, mazeHelper };
     }
-    case 'BUILD_MAZE': {
+    case actionTypes.BUILD_MAZE: {
       const { mazeHelper } = state;
       const maze = mazeHelper.build();
       return {
         ...state, maze
       };
     }
-    case 'FIND_PONY_PATH': {
+    case actionTypes.FIND_PONY_PATH: {
       const { mazeHelper } = state;
       const ponyPath = mazeHelper.findPath();
       return { ...state, ponyPath };
     }
-    case 'UPDATE_POSITIONS': {
+    case actionTypes.UPDATE_POSITIONS: {
       const { mazeHelper } = state;
-      const maze = mazeHelper.updateMaze(action.ponyPos, action.domokunPos);
+      const { ponyPos, domokunPos } = action;
+      const maze = mazeHelper.updateMaze(ponyPos, domokunPos);
       return { ...state, maze };
     }
     default:
