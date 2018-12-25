@@ -1,0 +1,27 @@
+@import './variables.scss';
+
+.mazeContainer {
+    width: 100%;
+}
+
+.upperContainer {
+    width: 100%;
+    float: left;
+}
+
+.bottomContainer {
+    width: 100%;
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+}
+
+.maze {
+    margin: 0 auto;
+    border-right: $wallColor solid $wallThickness;
+    border-bottom: $wallColor solid $wallThickness;
+    background: $mazeBackground;
+}
+
