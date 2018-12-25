@@ -1,11 +1,11 @@
 import React from 'react';
 import Maze from './Maze';
-import Footer from './Footer';
+import Options from './Options';
 
 const App = () => (
   <React.Fragment>
     <Maze />
-    <Footer />
+    <Options />
   </React.Fragment>
 );
 
