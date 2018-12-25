@@ -1,0 +1,31 @@
+.optionsContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    white-space: nowrap;
+
+    .labelContainer {
+        margin-left: 30px;
+        display: inline-block;
+    }
+
+    label {
+        margin-right: 10px;
+        margin-left: 20px;
+        font-size: 18px;
+        color: blue;
+        letter-spacing: 2px;
+    }
+
+    select {
+        margin-right: 40px;
+        padding: 5px ;
+        width: 60px;
+        text-align: center;
+        font-size: 18px;
+        border: blue solid 1px;
+        color: blue;
+    }
+}
