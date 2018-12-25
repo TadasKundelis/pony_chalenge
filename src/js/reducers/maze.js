@@ -1,7 +1,7 @@
 import MazeHelper from '../utilities/MazeHelper';
 import * as actionTypes from '../constants/actionTypes';
 
-const initialState = {
+export const initialState = {
   maze: null,
   mazeHelper: null,
   id: null,

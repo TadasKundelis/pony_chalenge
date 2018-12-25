@@ -1,13 +1,13 @@
 import * as actionTypes from '../constants/actionTypes';
 
-const initialState = {
+export const initialState = {
   displayMaze: false,
   displayOptions: true,
   displayResult: false,
   displayPlayBtn: false
 };
 
-const UIReducer = (state = initialState, action) => {
+export const UIReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.RESET_UI:
       return initialState;
