@@ -20,7 +20,7 @@ export const fetchMazeID = () => (dispatch, getState) => {
     'maze-player-name': 'Rainbow dash',
     difficulty
   };
-  axios
+  return axios
     .post(baseUrl, config)
     .then((res) => {
       const {
@@ -35,23 +35,21 @@ export const fetchMazeID = () => (dispatch, getState) => {
     .catch(err => console.log(err));
 };
 
-export const fetchMaze = mazeID => (dispatch) => {
-  axios
-    .get(`${baseUrl}/${mazeID}`)
-    .then((res) => {
-      const {
-        data: {
-          data: cellData, pony: ponyPos, domokun: domokunPos, 'end-point': endPoint
-        }
-      } = res;
-      dispatch(createMazeHelper(cellData, [ponyPos, domokunPos, endPoint]));
-      dispatch(buildMaze());
-      dispatch(updateMazeUI(true));
-      dispatch(updatePlayBtnUI(true));
-      dispatch(updateOptionsUI(false));
-    })
-    .catch(err => console.log(err));
-};
+export const fetchMaze = mazeID => dispatch => axios
+  .get(`${baseUrl}/${mazeID}`)
+  .then((res) => {
+    const {
+      data: {
+        data: cellData, pony: ponyPos, domokun: domokunPos, 'end-point': endPoint
+      }
+    } = res;
+    dispatch(createMazeHelper(cellData, [ponyPos, domokunPos, endPoint]));
+    dispatch(buildMaze());
+    dispatch(updateMazeUI(true));
+    dispatch(updatePlayBtnUI(true));
+    dispatch(updateOptionsUI(false));
+  })
+  .catch(err => console.log(err));
 
 export const updateMaze = () => (dispatch, getState) => {
   const {
