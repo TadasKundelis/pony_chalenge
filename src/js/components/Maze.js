@@ -2,13 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Cell from './Cell';
+import { play } from '../thunks';
+import Result from './Result';
+import MazeHelper from '../utilities/MazeHelper';
 
-const Maze = (props) => {
+export const Maze = (props) => {
   const {
-    displayMaze, maze, width, height, mazeHelper
+    displayMaze, displayPlayBtn, maze, width, height, mazeHelper, play
   } = props;
     //calculate css width and height based on maze width and height
-  const [CSSwidth, CSSheight] = [width, height].map(param => `${param * 25 + 3}px`);
+  const [CSSwidth, CSSheight] = [width, height].map(param => `${param * 25 + 2}px`);
   const styles = {
     width: CSSwidth,
     height: CSSheight
@@ -23,37 +26,50 @@ const Maze = (props) => {
       );
     });
   }
-  return (
-    <React.Fragment>
+  return maze && displayMaze
+    ? (
       <div className="mazeContainer">
-        {maze && displayMaze
-          ? (
-            <div style={styles} className="maze">
-              { cells }
-            </div>
-          ) : null}
+        <div className="upperContainer">
+          <div style={styles} className="maze">
+            { cells }
+          </div>
+        </div>
+        <div className="bottomContainer">
+          {displayPlayBtn
+            ? <button type="button" onClick={play}>Play!</button> : null}
+          <Result />
+        </div>
       </div>
-    </React.Fragment>
-  );
+    ) : null;
 };
 
 const mapStateToProps = state => ({
   displayMaze: state.UI.displayMaze,
+  displayPlayBtn: state.UI.displayPlayBtn,
   maze: state.maze.maze,
   mazeHelper: state.maze.mazeHelper,
   width: state.maze.width,
-  height: state.maze.height
+  height: state.maze.height,
+  play: PropTypes.func.isRequired
+});
+
+const mapDispatchToProps = dispatch => ({
+  play: () => dispatch(play())
 });
 
 Maze.propTypes = {
   displayMaze: PropTypes.bool.isRequired,
+  displayPlayBtn: PropTypes.bool.isRequired,
   maze: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.object)),
   width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired
+  height: PropTypes.number.isRequired,
+  play: PropTypes.func.isRequired,
+  mazeHelper: PropTypes.shape(MazeHelper)
 };
 
 Maze.defaultProps = {
-  maze: null
+  maze: null,
+  mazeHelper: null
 };
 
-export default connect(mapStateToProps, null)(Maze);
+export default connect(mapStateToProps, mapDispatchToProps)(Maze);
