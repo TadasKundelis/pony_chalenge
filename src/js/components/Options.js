@@ -3,21 +3,20 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setProp } from '../actions/maze';
 import { fetchMazeID } from '../thunks';
+import { Select } from './Select';
 
-import Select from './Select';
-
-const Options = (props) => {
+export const Options = (props) => {
   const {
     display, width, height, difficulty, setProp, fetchMazeID
   } = props;
 
   return display ? (
     <div className="optionsContainer">
-      <button type="button" onClick={fetchMazeID}>Create maze!</button>
+      <button type="button" onClick={fetchMazeID}>Create maze</button>
       <div className="labelContainer">
-        <Select value={width} label="Width" setProp={value => setProp('width', value)} />
-        <Select value={height} label="Height" setProp={value => setProp('height', value)} />
-        <Select value={difficulty} label="Difficulty" setProp={value => setProp('difficulty', value)} />
+        <Select value={width} label="Width" range={[15, 25]} setProp={value => setProp('width', value)} />
+        <Select value={height} label="Height" range={[15, 25]} setProp={value => setProp('height', value)} />
+        <Select value={difficulty} label="Difficulty" range={[1, 10]} setProp={value => setProp('difficulty', value)} />
       </div>
     </div>
   )
