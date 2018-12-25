@@ -1,24 +1,44 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Select = (props) => {
-  const { value, setProp, label } = props;
-  const min = label === 'Difficulty' ? '1' : '15';
-  const max = label === 'Difficulty' ? '10' : '25';
-  const handleChange = (e) => {
-    const { target: { value } } = e;
-    return setProp(Number(value));
-  };
-  return (
-    <label>
-      {label}
-      <input min={min} max={max} type="number" value={value} onChange={handleChange} />
-    </label>
-  );
-};
+export class Select extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(e) {
+    const {
+      target: {
+        value
+      }
+    } = e;
+    const { setProp } = this.props;
+    console.log(value);
+    setProp(Number(value));
+  }
+
+  render() {
+    const {
+      label, range
+    } = this.props;
+    const [start, end] = range;
+    const options = Array.from({ length: end - start + 1 }, (_, index) => start + index);
+    return (
+      <React.Fragment>
+        <label htmlFor="dropdown">
+          {label}
+        </label>
+        <select id="dropdown" onChange={this.handleChange}>
+          {options.map(option => <option key={option}>{option}</option>)}
+        </select>
+      </React.Fragment>
+    );
+  }
+}
 
 Select.propTypes = {
-  value: PropTypes.number.isRequired,
+  range: PropTypes.arrayOf(PropTypes.number).isRequired,
   label: PropTypes.string.isRequired,
   setProp: PropTypes.func.isRequired
 };
