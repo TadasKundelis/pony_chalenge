@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 
 import { resetState } from '../thunks';
 
-
-const Result = (props) => {
+//add export here to export unconnected component for testing
+export const Result = (props) => {
   const { display, result, startNewGame } = props;
   return (
     display ? (
