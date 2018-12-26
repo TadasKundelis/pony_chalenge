@@ -14,6 +14,7 @@ describe('MazeHelper', () => {
       expect(maze[0]).toHaveLength(mazeHelper.width);
     });
   });
+
   describe('buildCells method', () => {
     it('matrix cell should contain rol, col and walls properties', () => {
       const cell = maze[0][0];
@@ -21,6 +22,7 @@ describe('MazeHelper', () => {
       expect(props).toEqual(expect.arrayContaining(['row', 'col', 'walls']));
     });
   });
+
   describe('insertElement method', () => {
     it('should insert pony, domokun and endPoint into matrix', () => {
       const pony = maze[4][5].occupiedBy;
@@ -29,6 +31,7 @@ describe('MazeHelper', () => {
       expect([pony, domokun, endPoint]).toEqual(['pony', 'domokun', 'endPoint']);
     });
   });
+
   describe('calculateCoordinates method', () => {
     it('should calculate row and column coordinates from a given number', () => {
       const num = 25;
@@ -36,12 +39,14 @@ describe('MazeHelper', () => {
       expect([row, col]).toEqual([1, 10]);
     });
   });
+
   describe('findPath method', () => {
     it('should return an array with directions', () => {
       const path = mazeHelper.findPath();
       expect(path).toEqual(directions);
     });
   });
+
   describe('updateMaze method', () => {
     it('should put pony and domokun in new positions and remove from previous positions', () => {
       const updatedMaze = mazeHelper.updateMaze([66], [219]);
