@@ -17,11 +17,9 @@ describe('Thunks', () => {
   beforeEach(() => {
     moxios.install();
   });
-
   afterEach(() => {
     moxios.uninstall();
   });
-
   describe('resetState thunk', () => {
     it('should dispatch resetUI and resetMaze action creators ', () => {
       const expectedActions = [
@@ -46,6 +44,7 @@ describe('Thunks', () => {
       const mazeHelper = createInstance();
       const maze = mazeHelper.build();
       const ponyPath = mazeHelper.findPath();
+
       const state = {
         ...initialState, maze, mazeHelper, ponyPath
       };
@@ -70,22 +69,21 @@ describe('Thunks', () => {
           }
         });
       });
+
       const expectedActions = [
         mazeActions.setProp('id', mazeID)
       ];
 
       const store = mockStore({ maze: initialState });
-      store.dispatch(thunks.fetchMazeID());
-      let actualActions;
-      setTimeout(() => {
-        actualActions = store.getActions();
+      store.dispatch(thunks.fetchMazeID()).then(() => {
+        const actualActions = store.getActions();
         expect(actualActions).toEqual(expectedActions);
-      }, 10);
+      });
     });
   });
 
   describe('fetchMaze thunk', () => {
-    it('should dispatch ', () => {
+    it('should dispatch createMazeHelper, buildMaze, updateMazeUI, updatePlayBtnUI, updateOptionsUI', () => {
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
         request.respondWith({
@@ -101,6 +99,7 @@ describe('Thunks', () => {
       } = data;
 
       const store = mockStore({ maze: initialState });
+
       const expectedActions = [
         mazeActions.createMazeHelper(cellData, [pony, domokun, endPoint]),
         mazeActions.buildMaze(),
@@ -108,11 +107,11 @@ describe('Thunks', () => {
         UIActions.updatePlayBtnUI(true),
         UIActions.updateOptionsUI(false)
       ];
-      store.dispatch(thunks.fetchMazeID(mazeID));
-      setTimeout(() => {
+
+      store.dispatch(thunks.fetchMazeID(mazeID)).then(() => {
         const actualActions = store.getActions();
         expect(actualActions).toEqual(expectedActions);
-      }, 20);
+      });
     });
   });
 });
