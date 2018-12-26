@@ -42,11 +42,11 @@ describe('Thunks', () => {
       ];
 
       const mazeHelper = createInstance();
-      const maze = mazeHelper.build();
+      const matrix = mazeHelper.createMatrix();
       const ponyPath = mazeHelper.findPath();
 
       const state = {
-        ...initialState, maze, mazeHelper, ponyPath
+        ...initialState, matrix, mazeHelper, ponyPath
       };
 
       const store = mockStore({ maze: state });

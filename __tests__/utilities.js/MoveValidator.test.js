@@ -4,7 +4,7 @@ import MoveValidator from '../../src/js/utilities/MoveValidator';
 
 describe('moveValidator', () => {
   const mazeHelper = createInstance();
-  const maze = mazeHelper.build();
+  const matrix = mazeHelper.createMatrix();
   const moveValidator = new MoveValidator(mazeHelper);
   describe('checkLimits method', () => {
     it('should return false if row coordinate is < 0', () => {
@@ -43,7 +43,7 @@ describe('moveValidator', () => {
     });
     describe('run method', () => {
       it('should return false if pony tries to go to visited cell', () => {
-        maze[5][5].visited = true;
+        matrix[5][5].visited = true;
         const bool = moveValidator.run(5, 5, 6, 5);
         expect(bool).toBe(false);
       });

@@ -7,7 +7,7 @@ import createInstance from '../../mock data/MazeHelper';
 describe('Maze component', () => {
   const cells = Array.from({ length: 225 }, _ => ({ row: 0, col: 0, walls: [] }));
   const data = {
-    maze: cells,
+    matrix: cells,
     mazeHelper: createInstance(),
     width: 15,
     height: 15,
