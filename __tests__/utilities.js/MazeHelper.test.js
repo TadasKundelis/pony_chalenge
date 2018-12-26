@@ -4,20 +4,20 @@ import createInstance from '../../mock data/MazeHelper';
 
 describe('MazeHelper', () => {
   const mazeHelper = createInstance();
-  const maze = mazeHelper.build();
+  const matrix = mazeHelper.createMatrix();
 
   describe('build method', () => {
     it('should create a matrix whose length equals maze height', () => {
-      expect(maze).toHaveLength(mazeHelper.height);
+      expect(matrix).toHaveLength(mazeHelper.height);
     });
     it('number of objects in a matrix row should equal maze width', () => {
-      expect(maze[0]).toHaveLength(mazeHelper.width);
+      expect(matrix[0]).toHaveLength(mazeHelper.width);
     });
   });
 
   describe('buildCells method', () => {
     it('matrix cell should contain rol, col and walls properties', () => {
-      const cell = maze[0][0];
+      const cell = matrix[0][0];
       const props = Object.keys(cell);
       expect(props).toEqual(expect.arrayContaining(['row', 'col', 'walls']));
     });
@@ -25,9 +25,9 @@ describe('MazeHelper', () => {
 
   describe('insertElement method', () => {
     it('should insert pony, domokun and endPoint into matrix', () => {
-      const pony = maze[4][5].occupiedBy;
-      const domokun = maze[14][8].occupiedBy;
-      const endPoint = maze[10][14].occupiedBy;
+      const pony = matrix[4][5].occupiedBy;
+      const domokun = matrix[14][8].occupiedBy;
+      const endPoint = matrix[10][14].occupiedBy;
       expect([pony, domokun, endPoint]).toEqual(['pony', 'domokun', 'endPoint']);
     });
   });

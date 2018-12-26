@@ -39,17 +39,17 @@ describe('maze reducer', () => {
   });
 
   it('should build a maze', () => {
-    const maze = mazeHelper.build();
+    const matrix = mazeHelper.createMatrix();
     const state = { ...initialState, mazeHelper };
-    const expectedState = { ...initialState, maze, mazeHelper };
+    const expectedState = { ...initialState, matrix, mazeHelper };
     const action = {
       type: actionTypes.BUILD_MAZE
     };
     expect(reducer(state, action)).toEqual(expectedState);
   });
   it('should find pony path in the maze', () => {
-    const maze = mazeHelper.build();
-    const state = { ...initialState, maze, mazeHelper };
+    const matrix = mazeHelper.createMatrix();
+    const state = { ...initialState, matrix, mazeHelper };
     const expectedState = { ...state, ponyPath: directions };
     const action = {
       type: actionTypes.FIND_PONY_PATH
@@ -57,10 +57,10 @@ describe('maze reducer', () => {
     expect(reducer(state, action)).toEqual(expectedState);
   });
   it('should update pony and domokun positions in the maze', () => {
-    const maze = mazeHelper.build();
-    const state = { ...initialState, maze, mazeHelper };
+    const matrix = mazeHelper.createMatrix();
+    const state = { ...initialState, matrix, mazeHelper };
     mazeHelper.updateMaze([66], [219]);
-    const expectedState = { ...state, maze };
+    const expectedState = { ...state, matrix };
     const action = {
       type: actionTypes.UPDATE_POSITIONS,
       ponyPos: [66],
