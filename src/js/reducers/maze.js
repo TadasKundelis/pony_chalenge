@@ -2,7 +2,7 @@ import MazeHelper from '../utilities/MazeHelper';
 import * as actionTypes from '../constants/actionTypes';
 
 export const initialState = {
-  maze: null,
+  matrix: null,
   mazeHelper: null,
   id: null,
   height: 15,
@@ -30,9 +30,9 @@ const mazeReducer = (state = initialState, action) => {
     }
     case actionTypes.BUILD_MAZE: {
       const { mazeHelper } = state;
-      const maze = mazeHelper.build();
+      const matrix = mazeHelper.createMatrix();
       return {
-        ...state, maze
+        ...state, matrix
       };
     }
     case actionTypes.FIND_PONY_PATH: {
@@ -43,8 +43,8 @@ const mazeReducer = (state = initialState, action) => {
     case actionTypes.UPDATE_POSITIONS: {
       const { mazeHelper } = state;
       const { ponyPos, domokunPos } = action;
-      const maze = mazeHelper.updateMaze(ponyPos, domokunPos);
-      return { ...state, maze };
+      const matrix = mazeHelper.updateMaze(ponyPos, domokunPos);
+      return { ...state, matrix };
     }
     default:
       return state;

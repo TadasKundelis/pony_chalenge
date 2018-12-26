@@ -8,20 +8,20 @@ export default class MazeHelper {
     [this.ponyPos, this.domokunPos, this.endPoint] = positions.map(num => this.calculateCoordinates(num));
   }
 
-  build() {
-    this.maze = Array.from({ length: this.height }, _ => []);
+  createMatrix() {
+    this.matrix = Array.from({ length: this.height }, _ => []);
     this.buildCells();
     this.insertElement('pony', this.ponyPos);
     this.insertElement('domokun', this.domokunPos);
     this.insertElement('endPoint', this.endPoint);
     this.moveValidator = new MoveValidator(this);
-    return this.maze;
+    return this.matrix;
   }
 
   buildCells() {
     this.data.forEach((walls, index) => {
       const [row, col] = this.calculateCoordinates([index]);
-      this.maze[row].push({ walls, row, col });
+      this.matrix[row].push({ walls, row, col });
     });
   }
 
@@ -32,7 +32,7 @@ export default class MazeHelper {
   }
 
   insertElement(element, [row, col]) {
-    const cell = this.maze[row][col];
+    const cell = this.matrix[row][col];
     //don't delete the endPoint when domokun goes to the same cell
     if (cell.occupiedBy === 'endPoint' && element === 'domokun') return;
     cell.occupiedBy = element;
@@ -41,7 +41,7 @@ export default class MazeHelper {
   updateMaze(nextPonyPos, nextDomokunPos) {
     [this.ponyPos, this.domokunPos].forEach(
       ([row, col]) => {
-        const cell = this.maze[row][col];
+        const cell = this.matrix[row][col];
         if (cell.occupiedBy === 'endPoint') return;
         cell.occupiedBy = null;
       }
@@ -50,13 +50,13 @@ export default class MazeHelper {
     this.insertElement('pony', this.ponyPos);
     this.insertElement('domokun', this.domokunPos);
     //always return a new copy of the maze so React component rerenders
-    return this.maze.slice();
+    return this.matrix.slice();
   }
 
   findPath() {
     let directions;
     let [currentRow, currentCol] = this.ponyPos;
-    let currentCell = this.maze[currentRow][currentCol];
+    let currentCell = this.matrix[currentRow][currentCol];
     //initialize stack with cell that is occupied by the pony
     const stack = [currentCell];
 
@@ -77,7 +77,7 @@ export default class MazeHelper {
         //add cell to the path
         stack.push(currentCell);
         //update current cell
-        currentCell = this.maze[nextRow][nextCol];
+        currentCell = this.matrix[nextRow][nextCol];
         //if we reach the endPoint
         if (currentCell.occupiedBy === 'endPoint') {
           stack.push(currentCell);

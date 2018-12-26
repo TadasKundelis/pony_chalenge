@@ -1,13 +1,13 @@
 export default class MoveValidator {
   constructor(data) {
-    this.maze = data.maze;
+    this.matrix = data.matrix;
     this.mazeWidth = data.width;
     this.mazeHeight = data.height;
   }
 
   run(nextRow, nextCol, currentRow, currentCol) {
     if (!this.checkLimits(nextRow, nextCol)) return false;
-    const cell = this.maze[nextRow][nextCol];
+    const cell = this.matrix[nextRow][nextCol];
     return this.checkWalls(nextRow, nextCol, currentRow, currentCol) && !cell.visited;
   }
 
@@ -16,8 +16,8 @@ export default class MoveValidator {
   }
 
   checkWalls(nextRow, nextCol, currentRow, currentCol) {
-    const nextCell = this.maze[nextRow][nextCol];
-    const currentCell = this.maze[currentRow][currentCol];
+    const nextCell = this.matrix[nextRow][nextCol];
+    const currentCell = this.matrix[currentRow][currentCol];
     if (nextRow - currentRow === 1 && nextCell.walls.includes('north')) return false;
     if (nextCol - currentCol === 1 && nextCell.walls.includes('west')) return false;
     if (nextRow - currentRow === -1 && currentCell.walls.includes('north')) return false;
