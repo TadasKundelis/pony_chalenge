@@ -4,10 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "watch": "webpack-dev-server --mode development --open webpack --watch",
     "test:watch": "jest --watch",
     "test": "jest",
-    "webpack": "webpack"
+    "start": "webpack-dev-server --mode development --host 127.0.0.1 --open"
   },
   "keywords": [],
   "author": "",
