@@ -14,7 +14,6 @@ export class Select extends React.Component {
       }
     } = e;
     const { setProp } = this.props;
-    console.log(value);
     setProp(Number(value));
   }
 
