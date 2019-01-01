@@ -9,31 +9,34 @@ const htmlPlugin = new HtmlWebPackPlugin({
 
 
 module.exports = {
+  entry: ['@babel/polyfill', './src/index.js'],
+  output: {
+    path: path.resolve(__dirname, 'dist')
+  },
   module: {
-    rules: [
-      {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader'
-        }
-      },
-      {
-        test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: ['css-loader', 'sass-loader']
-        })
+    rules: [{
+      test: /\.(js|jsx)$/,
+      exclude: /node_modules/,
+      use: {
+        loader: 'babel-loader'
       }
+    },
+    {
+      test: /\.scss$/,
+      use: ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: ['css-loader', 'sass-loader']
+      })
+    }
     ]
   },
+  plugins: [
+    htmlPlugin,
+    new ExtractTextPlugin('styles.css')
+  ],
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
     port: 9000
-  },
-  plugins: [
-    htmlPlugin,
-    new ExtractTextPlugin('styles.css')],
-  watch: true
+  }
 };
