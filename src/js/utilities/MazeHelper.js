@@ -53,58 +53,51 @@ export default class MazeHelper {
     return this.matrix.slice();
   }
 
-  findPath() {
-    let directions;
-    let [currentRow, currentCol] = this.ponyPos;
-    let currentCell = this.matrix[currentRow][currentCol];
-    //initialize stack with cell that is occupied by the pony
-    const stack = [currentCell];
+  findPath([currentRow, currentCol] = this.ponyPos, stack = []) {
+    let nextCell;
+    //define current cell
+    const currentCell = this.matrix[currentRow][currentCol];
+    //mark cell as visited to avoid infinite loop
+    currentCell.visited = true;
+    
+    //find coordinates for the next move
+    const [nextRow, nextCol] = [
+      [currentRow + 1, currentCol],
+      [currentRow, currentCol + 1],
+      [currentRow - 1, currentCol],
+      [currentRow, currentCol - 1]
+    ].find(([candidateRow, candidateCol]) => this.moveValidator.run(candidateRow, candidateCol, currentRow, currentCol)) || [];
 
-    while (stack.length) {
-      //make current cell visited to avoid infinite loop
-      currentCell.visited = true;
-
-      //get coordinates for the next move
-      const [nextRow, nextCol] = [
-        [currentRow + 1, currentCol],
-        [currentRow, currentCol + 1],
-        [currentRow - 1, currentCol],
-        [currentRow, currentCol - 1]
-      ].find(([candidateRow, candidateCol]) => this.moveValidator.run(candidateRow, candidateCol, currentRow, currentCol)) || [];
-
-      //in case there's a valid next move
-      if (nextRow !== undefined && nextCol !== undefined) {
-        //add cell to the path
-        stack.push(currentCell);
-        //update current cell
-        currentCell = this.matrix[nextRow][nextCol];
-        //if we reach the endPoint
-        if (currentCell.occupiedBy === 'endPoint') {
-          stack.push(currentCell);
-          //get directions (ex. "south, north" etc)
-          directions = this.getDirections(stack);
-        }
-      } else {
-        //take last item from the stack in case you reach a dead-end and remove it from path
-        currentCell = stack.pop();
+    //if coordinates are found
+    if (nextRow !== undefined && nextCol !== undefined) {
+      //add current cell to the path (stack)
+      stack.push(currentCell);
+      //define next cell
+      nextCell = this.matrix[nextRow][nextCol];
+      //if next cell is endpoint, return
+      if (nextCell.occupiedBy === 'endPoint') {
+        stack.push(nextCell);
+        return this.getDirections(stack);
       }
-      [currentRow, currentCol] = [currentCell.row, currentCell.col];
+      //if you reach dead end, pop last item from the stack
+    } else {
+      nextCell = stack.pop();
     }
-    return directions;
-  }
+    //call findPath function with next coordinates and updated stack
+    return this.findPath([nextCell.row, nextCell.col], stack);
+  };
 
   getDirections(path) {
-    const directions = [];
-    path
+    return path
       .map(cell => [cell.row, cell.col])
-      .forEach(([row, col], index, array) => {
-        if (!index) return;
+      .map(([row, col], index, array) => {
+        if (!index) return false;
         const [previousRow, previousCol] = array[index - 1];
-        if (row - previousRow === 1) directions.push('south');
-        else if (row - previousRow === -1) directions.push('north');
-        else if (col - previousCol === 1) directions.push('east');
-        else if (col - previousCol === -1) directions.push('west');
-      });
-    return directions;
+        if (row - previousRow === 1) return 'south';
+        if (row - previousRow === -1) return 'north';
+        if (col - previousCol === 1) return 'east';
+        if (col - previousCol === -1) return 'west';
+      })
+      .slice(1);
   }
 }
