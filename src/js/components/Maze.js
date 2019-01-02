@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Cell from './Cell';
-import { play } from '../thunks';
+import { startGame } from '../thunks';
 import Result from './Result';
 import MazeHelper from '../utilities/MazeHelper';
 
 export const Maze = (props) => {
   const {
-    displayMaze, displayPlayBtn, matrix, width, height, mazeHelper, play
+    displayMaze, displayPlayBtn, matrix, width, height, mazeHelper, startGame
   } = props;
     //calculate css width and height based on maze width and height
   const [CSSwidth, CSSheight] = [width, height].map(param => `${param * 25 + 2}px`);
@@ -36,7 +36,7 @@ export const Maze = (props) => {
         </div>
         <div className="bottomContainer">
           {displayPlayBtn
-            ? <button type="button" onClick={play}>Play!</button> : null}
+            ? <button type="button" onClick={startGame}>Play!</button> : null}
           <Result />
         </div>
       </div>
@@ -49,12 +49,11 @@ const mapStateToProps = state => ({
   matrix: state.maze.matrix,
   mazeHelper: state.maze.mazeHelper,
   width: state.maze.width,
-  height: state.maze.height,
-  play: PropTypes.func.isRequired
+  height: state.maze.height
 });
 
 const mapDispatchToProps = dispatch => ({
-  play: () => dispatch(play())
+  startGame: () => dispatch(startGame())
 });
 
 Maze.propTypes = {
@@ -63,8 +62,8 @@ Maze.propTypes = {
   matrix: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.object)),
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
-  play: PropTypes.func.isRequired,
-  mazeHelper: PropTypes.shape(MazeHelper)
+  mazeHelper: PropTypes.shape(MazeHelper),
+  startGame: PropTypes.func.isRequired
 };
 
 Maze.defaultProps = {

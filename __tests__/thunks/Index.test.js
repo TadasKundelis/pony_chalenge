@@ -34,7 +34,7 @@ describe('Thunks', () => {
     });
   });
 
-  describe('play thunk', () => {
+  describe('startGame thunk', () => {
     it('should dispatch updatePlayBtn and findPonyPath action creators ', () => {
       const expectedActions = [
         UIActions.updatePlayBtnUI(false),
@@ -50,7 +50,7 @@ describe('Thunks', () => {
       };
 
       const store = mockStore({ maze: state });
-      store.dispatch(thunks.play());
+      store.dispatch(thunks.startGame());
       const actualActions = store.getActions();
       expect(actualActions).toEqual(expectedActions);
     });
