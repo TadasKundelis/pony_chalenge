@@ -67,16 +67,17 @@ export const fetchMaze = mazeID => dispatch => axios
 
 
 export const play = () => (dispatch, getState) => {
-  const moveFigures = async (index = 0) => {
-    const {
-      maze: {
-        id,
-        ponyPath
-      }
-    } = getState();
+  const {
+    maze: {
+      id,
+      ponyPath
+    }
+  } = getState();
 
+  const moveFigures = async (index = 0) => {
     if (index === ponyPath.length) return;
     const direction = ponyPath[index];
+
     //send a post request with pony position
     try {
       await axios.post(`${baseUrl}/${id}`, {
@@ -100,6 +101,7 @@ export const play = () => (dispatch, getState) => {
       } = response;
 
       dispatch(updatePositions(ponyPos, domokunPos));
+
       if (gameState === 'won' || gameState === 'over') {
         const result = gameState === 'won' ? 'You won! Congratulations!' : 'You lost...';
         dispatch(setProp('result', result));
