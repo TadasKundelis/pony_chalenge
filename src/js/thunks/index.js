@@ -124,5 +124,5 @@ export const startGame = () => (dispatch) => {
 
 export const resetState = () => (dispatch) => {
   dispatch(resetUI());
-  dispatch(resetMaze());
+  setTimeout(() => dispatch(resetMaze()), 300);
 };
