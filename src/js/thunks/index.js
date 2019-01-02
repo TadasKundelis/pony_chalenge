@@ -1,9 +1,18 @@
 import axios from 'axios';
 import {
-  createMazeHelper, buildMaze, setProp, updatePositions, findPonyPath, resetMaze
+  createMazeHelper,
+  buildMaze,
+  setProp,
+  updatePositions,
+  findPonyPath,
+  resetMaze
 } from '../actions/maze';
 import {
-  updateMazeUI, updateOptionsUI, updateResultUI, updatePlayBtnUI, resetUI
+  updateMazeUI,
+  updateOptionsUI,
+  updateResultUI,
+  updatePlayBtnUI,
+  resetUI
 } from '../actions/UI';
 
 const baseUrl = 'https://ponychallenge.trustpilot.com/pony-challenge/maze';
@@ -11,7 +20,9 @@ const baseUrl = 'https://ponychallenge.trustpilot.com/pony-challenge/maze';
 export const fetchMazeID = () => (dispatch, getState) => {
   const {
     maze: {
-      width, height, difficulty
+      width,
+      height,
+      difficulty
     }
   } = getState();
   const config = {
@@ -40,7 +51,10 @@ export const fetchMaze = mazeID => dispatch => axios
   .then((res) => {
     const {
       data: {
-        data: cellData, pony: ponyPos, domokun: domokunPos, 'end-point': endPoint
+        data: cellData,
+        pony: ponyPos,
+        domokun: domokunPos,
+        'end-point': endPoint
       }
     } = res;
     dispatch(createMazeHelper(cellData, [ponyPos, domokunPos, endPoint]));
@@ -51,25 +65,40 @@ export const fetchMaze = mazeID => dispatch => axios
   })
   .catch(err => console.log(err));
 
-export const updateMaze = () => (dispatch, getState) => {
-  const {
-    maze: {
-      id
+
+export const play = () => (dispatch, getState) => {
+  const moveFigures = async (index = 0) => {
+    const {
+      maze: {
+        id,
+        ponyPath
+      }
+    } = getState();
+
+    if (index === ponyPath.length) return;
+    const direction = ponyPath[index];
+    //send a post request with pony position
+    try {
+      await axios.post(`${baseUrl}/${id}`, {
+        direction
+      });
+    } catch (err) {
+      console.log(err);
     }
-  } = getState();
-  //request to get the new maze state after pony move
-  axios
-    .get(`${baseUrl}/${id}`)
-    .then((res) => {
+
+    //send a request to get new domokun position
+    try {
+      const response = await axios.get(`${baseUrl}/${id}`);
       const {
         data: {
-          pony: ponyPos, domokun: domokunPos,
+          pony: ponyPos,
+          domokun: domokunPos,
           'game-state': {
             state: gameState
           }
         }
-      } = res;
-      //update domokun and pony positions in the maze
+      } = response;
+
       dispatch(updatePositions(ponyPos, domokunPos));
       if (gameState === 'won' || gameState === 'over') {
         const result = gameState === 'won' ? 'You won! Congratulations!' : 'You lost...';
@@ -77,34 +106,18 @@ export const updateMaze = () => (dispatch, getState) => {
         dispatch(updateResultUI(true));
         return;
       }
-      //make another move with the pony
-      dispatch(movePony());
-    });
-};
-
-export const movePony = () => (dispatch, getState) => {
-  const {
-    maze: {
-      id, ponyPath
+    } catch (err) {
+      console.log(err);
     }
-  } = getState();
-  //get next direction from the pony path
-  const direction = ponyPath.shift();
-  if (!direction) return;
-  //send a post request to get a response with new domokun position
-  axios
-    .post(`${baseUrl}/${id}`, { direction })
-    .then((_) => {
-      //add some delay for smoother visualisation
-      setTimeout(() => dispatch(updateMaze()), 400);
-    })
-    .catch(err => console.log(err));
+    moveFigures(index + 1);
+  };
+  moveFigures();
 };
 
-export const play = () => (dispatch) => {
+export const startGame = () => (dispatch) => {
   dispatch(updatePlayBtnUI(false));
   dispatch(findPonyPath());
-  dispatch(movePony());
+  dispatch(play());
 };
 
 export const resetState = () => (dispatch) => {
