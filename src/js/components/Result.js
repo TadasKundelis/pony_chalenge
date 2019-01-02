@@ -7,12 +7,10 @@ import { resetState } from '../thunks';
 export const Result = (props) => {
   const { display, result, startNewGame } = props;
   return (
-    display ? (
-      <div className="resultContainer">
-        <div className="result">{result}</div>
-        <button type="button" onClick={startNewGame}>New game</button>
-      </div>
-    ) : null
+    <div className={`resultContainer${display ? ' fadeIn' : ' fadeOut'}`}>
+      <div className="result">{result}</div>
+      <button type="button" onClick={startNewGame}>New game</button>
+    </div>
   );
 };
 

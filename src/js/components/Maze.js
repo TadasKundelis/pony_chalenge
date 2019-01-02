@@ -10,7 +10,7 @@ export const Maze = (props) => {
   const {
     displayMaze, displayPlayBtn, matrix, width, height, mazeHelper, startGame
   } = props;
-    //calculate css width and height based on maze width and height
+  //calculate css width and height based on maze width and height
   const [CSSwidth, CSSheight] = [width, height].map(param => `${param * 25 + 2}px`);
   const styles = {
     width: CSSwidth,
@@ -26,21 +26,19 @@ export const Maze = (props) => {
       );
     });
   }
-  return matrix && displayMaze
-    ? (
-      <div className="mazeContainer">
-        <div className="upperContainer">
-          <div style={styles} className="maze">
-            { cells }
-          </div>
-        </div>
-        <div className="bottomContainer">
-          {displayPlayBtn
-            ? <button type="button" onClick={startGame}>Play!</button> : null}
-          <Result />
+  return (
+    <div className={`mazeContainer${displayMaze ? ' fadeIn' : ' fadeOut'}`}>
+      <div className="upperContainer">
+        <div style={styles} className="maze">
+          {cells}
         </div>
       </div>
-    ) : null;
+      <div className="bottomContainer">
+        <button className={`playBtn${displayPlayBtn ? ' fadeIn' : ' fadeOut'}`} type="button" onClick={startGame}>Play!</button>
+        <Result />
+      </div>
+    </div>
+  );
 };
 
 const mapStateToProps = state => ({

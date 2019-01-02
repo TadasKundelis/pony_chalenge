@@ -10,8 +10,8 @@ export const Options = (props) => {
     display, width, height, difficulty, setProp, fetchMazeID
   } = props;
 
-  return display ? (
-    <div className="optionsContainer">
+  return (
+    <div className={`optionsContainer${display ? ' fadeIn' : ' fadeOut'}`}>
       <button type="button" onClick={fetchMazeID}>Create maze</button>
       <div className="labelContainer">
         <Select value={width} label="Width" range={[15, 25]} setProp={value => setProp('width', value)} />
@@ -20,7 +20,6 @@ export const Options = (props) => {
       </div>
     </div>
   )
-    : null;
 };
 
 const mapStateToProps = state => ({
