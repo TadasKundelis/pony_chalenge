@@ -14,8 +14,15 @@ export const initialState = {
 
 const mazeReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.RESET_MAZE:
-      return initialState;
+    case actionTypes.RESET_MAZE: {
+      const {
+        height, width, difficulty
+      } = state;
+      //keep current width, height and difficulty settings, reset everything else
+      return {
+        ...initialState, width, height, difficulty
+      };
+    }
     case actionTypes.SET_PROP: {
       const { prop, value } = action;
       return { ...state, [prop]: value };
