@@ -9,7 +9,9 @@ export default class MazeHelper {
   }
 
   createMatrix() {
-    this.matrix = Array.from({ length: this.height }, _ => []);
+    this.matrix = Array.from({
+      length: this.height
+    }, _ => []);
     this.buildCells();
     this.insertElement('pony', this.ponyPos);
     this.insertElement('domokun', this.domokunPos);
@@ -21,7 +23,11 @@ export default class MazeHelper {
   buildCells() {
     this.data.forEach((walls, index) => {
       const [row, col] = this.calculateCoordinates([index]);
-      this.matrix[row].push({ walls, row, col });
+      this.matrix[row].push({
+        walls,
+        row,
+        col
+      });
     });
   }
 
@@ -59,7 +65,7 @@ export default class MazeHelper {
     const currentCell = this.matrix[currentRow][currentCol];
     //mark cell as visited to avoid infinite loop
     currentCell.visited = true;
-    
+
     //find coordinates for the next move
     const [nextRow, nextCol] = [
       [currentRow + 1, currentCol],
@@ -85,7 +91,7 @@ export default class MazeHelper {
     }
     //call findPath function with next coordinates and updated stack
     return this.findPath([nextCell.row, nextCell.col], stack);
-  };
+  }
 
   getDirections(path) {
     return path
