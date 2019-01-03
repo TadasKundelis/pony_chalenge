@@ -4,14 +4,14 @@ import { Options } from '../../src/js/components/Options';
 import { Select } from '../../src/js/components/Select';
 
 describe('<Options />', () => {
-  const mockFetchMazeID = jest.fn();
+  const mockCreateGame = jest.fn();
   const mockSetProp = jest.fn();
   const data = {
     width: 15,
     height: 15,
     display: true,
     difficulty: 5,
-    fetchMazeID: mockFetchMazeID,
+    createGame: mockCreateGame,
     setProp: mockSetProp
   };
 
@@ -21,6 +21,6 @@ describe('<Options />', () => {
   });
   it('should call fetchMazeID function on button click', () => {
     wrapper.find('button').simulate('click');
-    expect(mockFetchMazeID.mock.calls.length).toBe(1);
+    expect(mockCreateGame.mock.calls.length).toBe(1);
   });
 });

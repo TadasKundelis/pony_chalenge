@@ -10,12 +10,12 @@ describe('Maze component', () => {
       _ => ({ row: 0, col: 0, walls: [] })));
 
   const data = {
-    displayPlayBtn: true,
+    playBtnUI: 'display',
     matrix: cells,
     mazeHelper: createInstance(),
     width: 15,
     height: 15,
-    displayMaze: true
+    mazeUI: 'display'
   };
   const wrapper = shallow(<Maze {...data} />);
   it('should contain number of cells equal to width * height', () => {
