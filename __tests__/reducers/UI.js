@@ -9,39 +9,43 @@ describe('UI reducer', () => {
     const action = {
       type: actionTypes.RESET_UI
     };
-    const modifiedState = { ...initialState, displayMaze: true };
+    const modifiedState = { ...initialState, maze: 'display' };
     expect(UIReducer(modifiedState, action)).toEqual(initialState);
   });
   it('should update maze UI', () => {
     const action = {
-      type: actionTypes.UPDATE_MAZE_UI,
-      value: true
+      type: actionTypes.UPDATE_UI,
+      el: 'maze',
+      value: 'hide'
     };
-    const expectedState = { ...initialState, displayMaze: true };
+    const expectedState = { ...initialState, maze: 'hide' };
     expect(UIReducer(initialState, action)).toEqual(expectedState);
   });
   it('should update options UI', () => {
     const action = {
-      type: actionTypes.UPDATE_OPTIONS_UI,
-      value: true
+      type: actionTypes.UPDATE_UI,
+      el: 'options',
+      value: 'display'
     };
-    const expectedState = { ...initialState, displayOptions: true };
+    const expectedState = { ...initialState, options: 'display' };
     expect(UIReducer(initialState, action)).toEqual(expectedState);
   });
   it('should update result UI', () => {
     const action = {
-      type: actionTypes.UPDATE_RESULT_UI,
-      value: true
+      type: actionTypes.UPDATE_UI,
+      el: 'options',
+      value: 'hide'
     };
-    const expectedState = { ...initialState, displayResult: true };
+    const expectedState = { ...initialState, options: 'hide' };
     expect(UIReducer(initialState, action)).toEqual(expectedState);
   });
   it('should update play button UI', () => {
     const action = {
-      type: actionTypes.UPDATE_PLAYBTN_UI,
-      value: true
+      type: actionTypes.UPDATE_UI,
+      el: 'playBtn',
+      value: 'display'
     };
-    const expectedState = { ...initialState, displayPlayBtn: true };
+    const expectedState = { ...initialState, playBtn: 'display' };
     expect(UIReducer(initialState, action)).toEqual(expectedState);
   });
 });
