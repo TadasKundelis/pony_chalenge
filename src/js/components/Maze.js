@@ -2,15 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Cell from './Cell';
-import { startGame } from '../thunks';
+import { playGame } from '../actions';
 import Result from './Result';
+import Spinner from './Spinner';
 import MazeHelper from '../utilities/MazeHelper';
 
 export const Maze = (props) => {
   const {
-    displayMaze, displayPlayBtn, matrix, width, height, mazeHelper, startGame
+    mazeUI, playBtnUI, matrix, width, height, mazeHelper, playGame
   } = props;
-  //calculate css width and height based on maze width and height
+  // calculate css width and height based on maze width and height
   const [CSSwidth, CSSheight] = [width, height].map(param => `${param * 25 + 2}px`);
   const styles = {
     width: CSSwidth,
@@ -27,14 +28,15 @@ export const Maze = (props) => {
     });
   }
   return (
-    <div className={`mazeContainer${displayMaze ? ' fadeIn' : ' fadeOut'}`}>
+    <div className="mazeContainer">
       <div className="upperContainer">
-        <div style={styles} className="maze">
+        <div style={styles} className={`maze${mazeUI === 'display' ? ' fadeIn' : ' fadeOut'}`}>
           {cells}
         </div>
+        <Spinner />
       </div>
       <div className="bottomContainer">
-        <button className={`playBtn${displayPlayBtn ? ' fadeIn' : ' fadeOut'}`} type="button" onClick={startGame}>Play!</button>
+        <button className={`playBtn${playBtnUI === 'display' ? ' fadeIn' : ' fadeOut'}`} type="button" onClick={playGame}>Play!</button>
         <Result />
       </div>
     </div>
@@ -42,8 +44,8 @@ export const Maze = (props) => {
 };
 
 const mapStateToProps = state => ({
-  displayMaze: state.UI.displayMaze,
-  displayPlayBtn: state.UI.displayPlayBtn,
+  mazeUI: state.UI.maze,
+  playBtnUI: state.UI.playBtn,
   matrix: state.maze.matrix,
   mazeHelper: state.maze.mazeHelper,
   width: state.maze.width,
@@ -51,17 +53,17 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  startGame: () => dispatch(startGame())
+  playGame: () => dispatch(playGame())
 });
 
 Maze.propTypes = {
-  displayMaze: PropTypes.bool.isRequired,
-  displayPlayBtn: PropTypes.bool.isRequired,
+  mazeUI: PropTypes.string.isRequired,
+  playBtnUI: PropTypes.string.isRequired,
   matrix: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.object)),
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
   mazeHelper: PropTypes.shape(MazeHelper),
-  startGame: PropTypes.func.isRequired
+  playGame: PropTypes.func.isRequired
 };
 
 Maze.defaultProps = {
