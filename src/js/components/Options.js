@@ -2,45 +2,45 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setProp } from '../actions/maze';
-import { fetchMazeID } from '../thunks';
+import { createGame } from '../actions';
 import { Select } from './Select';
 
 export const Options = (props) => {
   const {
-    display, width, height, difficulty, setProp, fetchMazeID
+    optionsUI, width, height, difficulty, setProp, createGame
   } = props;
 
   return (
-    <div className={`optionsContainer${display ? ' fadeIn' : ' fadeOut'}`}>
-      <button type="button" onClick={fetchMazeID}>Create maze</button>
+    <div className={`optionsContainer${optionsUI === 'display' ? ' fadeIn' : ' fadeOut'}`}>
+      <button type="button" onClick={createGame}>Create maze</button>
       <div className="labelContainer">
         <Select value={width} label="Width" range={[15, 25]} setProp={value => setProp('width', value)} />
         <Select value={height} label="Height" range={[15, 25]} setProp={value => setProp('height', value)} />
         <Select value={difficulty} label="Difficulty" range={[1, 10]} setProp={value => setProp('difficulty', value)} />
       </div>
     </div>
-  )
+  );
 };
 
 const mapStateToProps = state => ({
-  display: state.UI.displayOptions,
+  optionsUI: state.UI.options,
   width: state.maze.width,
   height: state.maze.height,
   difficulty: state.maze.difficulty
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchMazeID: () => dispatch(fetchMazeID()),
+  createGame: () => dispatch(createGame()),
   setProp: (prop, value) => dispatch(setProp(prop, value))
 });
 
 
 Options.propTypes = {
-  display: PropTypes.bool.isRequired,
+  optionsUI: PropTypes.string.isRequired,
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
   difficulty: PropTypes.number.isRequired,
-  fetchMazeID: PropTypes.func.isRequired,
+  createGame: PropTypes.func.isRequired,
   setProp: PropTypes.func.isRequired
 };
 
