@@ -10,6 +10,7 @@ export const updateDisplay = (el, value) => ({
 export const reset = () => ({
   type: actionTypes.RESET_UI
 });
+
 export const update = state => (dispatch) => {
   const updateElement = ([el, value]) => dispatch(updateDisplay(el, value));
   switch (state) {
