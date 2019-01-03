@@ -18,7 +18,7 @@ const mazeReducer = (state = initialState, action) => {
       const {
         height, width, difficulty
       } = state;
-      //keep current width, height and difficulty settings, reset everything else
+      // keep current width, height and difficulty settings, reset everything else
       return {
         ...initialState, width, height, difficulty
       };

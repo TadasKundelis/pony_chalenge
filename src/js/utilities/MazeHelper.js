@@ -5,7 +5,11 @@ export default class MazeHelper {
     this.data = data;
     this.width = width;
     this.height = height;
-    [this.ponyPos, this.domokunPos, this.endPoint] = positions.map(num => this.calculateCoordinates(num));
+    [
+      this.ponyPos,
+      this.domokunPos,
+      this.endPoint
+    ] = positions.map(num => this.calculateCoordinates(num));
   }
 
   createMatrix() {
@@ -39,7 +43,7 @@ export default class MazeHelper {
 
   insertElement(element, [row, col]) {
     const cell = this.matrix[row][col];
-    //don't delete the endPoint when domokun goes to the same cell
+    // don't delete the endPoint when domokun goes to the same cell
     if (cell.occupiedBy === 'endPoint' && element === 'domokun') return;
     cell.occupiedBy = element;
   }
@@ -48,61 +52,74 @@ export default class MazeHelper {
     [this.ponyPos, this.domokunPos].forEach(
       ([row, col]) => {
         const cell = this.matrix[row][col];
+        // if domokun is in the same cell as end point, don't remove the end point!
         if (cell.occupiedBy === 'endPoint') return;
         cell.occupiedBy = null;
       }
     );
-    [this.ponyPos, this.domokunPos] = [nextPonyPos, nextDomokunPos].map(num => this.calculateCoordinates(num));
+
+    [
+      this.ponyPos,
+      this.domokunPos
+    ] = [nextPonyPos, nextDomokunPos].map(num => this.calculateCoordinates(num));
+
     this.insertElement('pony', this.ponyPos);
     this.insertElement('domokun', this.domokunPos);
-    //always return a new copy of the maze so React component rerenders
+    // always return a new copy of the maze so React component rerenders
     return this.matrix.slice();
   }
 
   findPath([currentRow, currentCol] = this.ponyPos, stack = []) {
     let nextCell;
-    //define current cell
+    // define current cell
     const currentCell = this.matrix[currentRow][currentCol];
-    //mark cell as visited to avoid infinite loop
+    // mark cell as visited to avoid infinite loop
     currentCell.visited = true;
 
-    //find coordinates for the next move
+    // find coordinates for the next move
     const [nextRow, nextCol] = [
       [currentRow + 1, currentCol],
       [currentRow, currentCol + 1],
       [currentRow - 1, currentCol],
       [currentRow, currentCol - 1]
-    ].find(([candidateRow, candidateCol]) => this.moveValidator.run(candidateRow, candidateCol, currentRow, currentCol)) || [];
+    ].find(
+      ([
+        candidateRow,
+        candidateCol
+      ]) => this.moveValidator.run(candidateRow, candidateCol, currentRow, currentCol)
+    ) || [];
 
-    //if coordinates are found
+    // if coordinates are found
     if (nextRow !== undefined && nextCol !== undefined) {
-      //add current cell to the path (stack)
+      // add current cell to the path (stack)
       stack.push(currentCell);
-      //define next cell
+      // define next cell
       nextCell = this.matrix[nextRow][nextCol];
-      //if next cell is endpoint, return
+      // if next cell is endpoint, return
       if (nextCell.occupiedBy === 'endPoint') {
         stack.push(nextCell);
-        return this.getDirections(stack);
+        return this.constructor.getDirections(stack);
       }
-      //if you reach dead end, pop last item from the stack
+      // if you reach dead end, pop last item from the stack
     } else {
       nextCell = stack.pop();
     }
-    //call findPath function with next coordinates and updated stack
+    // call findPath function with next coordinates and updated stack
     return this.findPath([nextCell.row, nextCell.col], stack);
   }
 
-  getDirections(path) {
+  static getDirections(path) {
     return path
       .map(cell => [cell.row, cell.col])
       .map(([row, col], index, array) => {
         if (!index) return false;
+        let direction;
         const [previousRow, previousCol] = array[index - 1];
-        if (row - previousRow === 1) return 'south';
-        if (row - previousRow === -1) return 'north';
-        if (col - previousCol === 1) return 'east';
-        if (col - previousCol === -1) return 'west';
+        if (row - previousRow === 1) direction = 'south';
+        if (row - previousRow === -1) direction = 'north';
+        if (col - previousCol === 1) direction = 'east';
+        if (col - previousCol === -1) direction = 'west';
+        return direction;
       })
       .slice(1);
   }
