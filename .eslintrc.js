@@ -16,14 +16,10 @@ module.exports = {
     "no-unused-vars": ["error", {
       "argsIgnorePattern": "^_"
     }],
-    "spaced-comment": 0,
-    "import/prefer-default-export": 0,
-    "no-case-declarations": 0,
+    "no-underscore-dangle": ["error", { "allow": ["__REDUX_DEVTOOLS_EXTENSION_COMPOSE__"] }],
     "no-console": 0,
-    "no-use-before-define": 0,
-    "class-methods-use-this": 0,
     "no-shadow": 0,
-    "no-restricted-syntax": 0,
+    "import/no-named-as-default": 0,
     "jsx-a11y/label-has-for": [2, {
       "components": ["Label"],
       "required": {
