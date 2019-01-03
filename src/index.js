@@ -1,6 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { applyMiddleware, createStore, combineReducers } from 'redux';
+import {
+  applyMiddleware, createStore, combineReducers, compose
+} from 'redux';
 import Thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import App from './js/components/App';
@@ -13,10 +15,10 @@ const rootReducer = combineReducers({
   UI: UIReducer
 });
 
-export const store = createStore(
-  rootReducer,
-  applyMiddleware(Thunk),
-);
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(rootReducer, /* preloadedState, */ composeEnhancers(
+  applyMiddleware(Thunk)
+));
 
 render(
   <Provider store={store}>
