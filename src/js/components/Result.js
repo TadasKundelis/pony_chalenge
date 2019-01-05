@@ -7,9 +7,9 @@ import { resetState } from '../actions';
 export const Result = (props) => {
   const { resultUI, result, resetState } = props;
   return (
-    <div className={`resultContainer${resultUI === 'display' ? ' fadeIn' : ' fadeOut'}`}>
-      <div className="result">{result}</div>
-      <button type="button" onClick={resetState}>New game</button>
+    <div className={`result${resultUI === 'display' ? ' fadeIn' : ' fadeOut'}`}>
+      <div className="result__text">{result}</div>
+      <button className="result__btn" type="button" onClick={resetState}>New game</button>
     </div>
   );
 };

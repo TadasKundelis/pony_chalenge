@@ -1,16 +1,18 @@
-@import './variables.scss';
+@import './variables';
 
 .result {
-    font-size: 24px;
-    text-align: center;
-    color: $ponyColor;
-}
-
-.resultContainer {
-    width: 300px;
+    width: 500px;
     height: 130px;
     padding: 15px;
-    padding-top: 20px;
-    white-space:nowrap;
     text-align: center;
+
+    &__text {
+        font-size: 24px;
+        text-align: center;
+        color: $ponyColor;
+    }
+
+    &__btn {
+        margin-top: 10px;
+    }
 }

@@ -7,7 +7,7 @@ const Spinner = (props) => {
   const { spinnerUI } = props;
   return spinnerUI === 'display'
     ? (
-      <div className="spinner">
+      <div className="maze__spinner">
         <div />
         <div />
         <div />

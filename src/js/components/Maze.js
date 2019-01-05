@@ -28,15 +28,15 @@ export const Maze = (props) => {
     });
   }
   return (
-    <div className="mazeContainer">
-      <div className="upperContainer">
+    <div className="content-container">
+      <div className="upper-container">
         <div style={styles} className={`maze${mazeUI === 'display' ? ' fadeIn' : ' fadeOut'}`}>
           {cells}
         </div>
         <Spinner />
       </div>
-      <div className="bottomContainer">
-        <button className={`playBtn${playBtnUI === 'display' ? ' fadeIn' : ' fadeOut'}`} type="button" onClick={playGame}>Play!</button>
+      <div className="bottom-container">
+        <button className={`play-btn${playBtnUI === 'display' ? ' fadeIn' : ' fadeOut'}`} type="button" onClick={playGame}>Play!</button>
         <Result />
       </div>
     </div>
