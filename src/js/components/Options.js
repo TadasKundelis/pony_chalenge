@@ -11,9 +11,9 @@ export const Options = (props) => {
   } = props;
 
   return (
-    <div className={`optionsContainer${optionsUI === 'display' ? ' fadeIn' : ' fadeOut'}`}>
+    <div className={`options-container${optionsUI === 'display' ? ' fadeIn' : ' fadeOut'}`}>
       <button type="button" onClick={createGame}>Create maze</button>
-      <div className="labelContainer">
+      <div className="label-container">
         <Select value={width} label="Width" range={[15, 25]} setProp={value => setProp('width', value)} />
         <Select value={height} label="Height" range={[15, 25]} setProp={value => setProp('height', value)} />
         <Select value={difficulty} label="Difficulty" range={[1, 10]} setProp={value => setProp('difficulty', value)} />
