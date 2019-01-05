@@ -20,6 +20,8 @@ const store = createStore(rootReducer, /* preloadedState, */ composeEnhancers(
   applyMiddleware(Thunk)
 ));
 
+document.querySelector('.site-loader').style.display = 'none';
+
 render(
   <Provider store={store}>
     <App />
