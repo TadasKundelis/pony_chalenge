@@ -25,9 +25,9 @@
 }
 
 .cell--westWall {
-    border-left: black solid 2px;
+    border-left: $wallColor solid 2px;
 }
 
 .cell--northWall {
-    border-top: black solid 2px;
+    border-top: $wallColor solid 2px;
 }

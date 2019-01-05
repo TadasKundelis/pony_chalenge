@@ -1,12 +1,11 @@
-.optionsContainer {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-    white-space: nowrap;
+@import './variables';
 
-    .labelContainer {
+.options-container {
+    position: absolute;
+    opacity: 0;
+    transition: 2s opacity;
+
+    .label-container {
         margin-left: 30px;
         display: inline-block;
     }
@@ -15,7 +14,7 @@
         margin-right: 10px;
         margin-left: 20px;
         font-size: 18px;
-        color: blue;
+        color: $endPointColor;
         letter-spacing: 2px;
     }
 
@@ -25,7 +24,7 @@
         width: 60px;
         text-align: center;
         font-size: 18px;
-        border: blue solid 1px;
-        color: blue;
+        border: $endPointColor solid 1px;
+        color: $endPointColor;
     }
 }
