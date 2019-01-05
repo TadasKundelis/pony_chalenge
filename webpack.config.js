@@ -7,7 +7,6 @@ const htmlPlugin = new HtmlWebPackPlugin({
   template: 'src/index.html'
 });
 
-
 module.exports = {
   entry: ['@babel/polyfill', './src/index.js'],
   output: {
