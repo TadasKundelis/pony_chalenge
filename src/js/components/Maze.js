@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import uniqid from 'uniqid';
 import Cell from './Cell';
 import { playGame } from '../actions';
 import MazeHelper from '../utilities/MazeHelper';
@@ -21,7 +22,7 @@ export const Maze = (props) => {
       const [row, col] = mazeHelper.calculateCoordinates([index]);
       const data = matrix[row][col];
       return (
-        <Cell {...data} key={index} />
+        <Cell {...data} key={uniqid()} />
       );
     });
   }
