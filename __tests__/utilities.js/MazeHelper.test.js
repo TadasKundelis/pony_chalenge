@@ -6,7 +6,7 @@ describe('MazeHelper', () => {
   const mazeHelper = createInstance();
   const matrix = mazeHelper.createMatrix();
 
-  describe('build method', () => {
+  describe('createMatrix method', () => {
     it('should create a matrix whose length equals maze height', () => {
       expect(matrix).toHaveLength(mazeHelper.height);
     });
