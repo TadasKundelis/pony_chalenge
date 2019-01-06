@@ -3,13 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Cell from './Cell';
 import { playGame } from '../actions';
-import Result from './Result';
-import Spinner from './Spinner';
 import MazeHelper from '../utilities/MazeHelper';
 
 export const Maze = (props) => {
   const {
-    mazeUI, playBtnUI, matrix, width, height, mazeHelper, playGame
+    displaySetting, matrix, width, height, mazeHelper
   } = props;
   // calculate css width and height based on maze width and height
   const [CSSwidth, CSSheight] = [width, height].map(param => `${param * 25 + 2}px`);
@@ -28,24 +26,14 @@ export const Maze = (props) => {
     });
   }
   return (
-    <div className="content-container">
-      <div className="upper-container">
-        <div style={styles} className={`maze${mazeUI === 'display' ? ' fadeIn' : ' fadeOut'}`}>
-          {cells}
-        </div>
-        <Spinner />
-      </div>
-      <div className="bottom-container">
-        <button className={`play-btn${playBtnUI === 'display' ? ' fadeIn' : ' fadeOut'}`} type="button" onClick={playGame}>Play!</button>
-        <Result />
-      </div>
+    <div style={styles} className={`maze ${displaySetting}`}>
+      {cells}
     </div>
   );
 };
 
 const mapStateToProps = state => ({
-  mazeUI: state.UI.maze,
-  playBtnUI: state.UI.playBtn,
+  displaySetting: state.UI.maze,
   matrix: state.maze.matrix,
   mazeHelper: state.maze.mazeHelper,
   width: state.maze.width,
@@ -57,18 +45,17 @@ const mapDispatchToProps = dispatch => ({
 });
 
 Maze.propTypes = {
-  mazeUI: PropTypes.string.isRequired,
-  playBtnUI: PropTypes.string.isRequired,
+  displaySetting: PropTypes.string.isRequired,
   matrix: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.object)),
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
-  mazeHelper: PropTypes.shape(MazeHelper),
-  playGame: PropTypes.func.isRequired
+  mazeHelper: PropTypes.shape(MazeHelper)
 };
 
 Maze.defaultProps = {
   matrix: null,
   mazeHelper: null
 };
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(Maze);

@@ -1,10 +1,11 @@
 import React from 'react';
-import Maze from './Maze';
+import Game from './Game';
 import Options from './Options';
+
 
 const App = () => (
   <React.Fragment>
-    <Maze />
+    <Game />
     <Options />
   </React.Fragment>
 );
