@@ -12,13 +12,13 @@ describe('UI actions', () => {
     it('should create an action to update UI element', () => {
       expect(actions.updateDisplay(el, value)).toEqual(expectedAction);
     });
-    describe('resetUI action creator', () => {
-      const expectedAction = {
-        type: actionTypes.RESET_UI
-      };
-      it('should create an action to reset UI settings', () => {
-        expect(actions.reset()).toEqual(expectedAction);
-      });
+  });
+  describe('resetUI action creator', () => {
+    const expectedAction = {
+      type: actionTypes.RESET_UI
+    };
+    it('should create an action to reset UI settings', () => {
+      expect(actions.reset()).toEqual(expectedAction);
     });
   });
 });
