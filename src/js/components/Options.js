@@ -7,11 +7,11 @@ import { Select } from './Select';
 
 export const Options = (props) => {
   const {
-    optionsUI, width, height, difficulty, setProp, createGame
+    displaySetting, width, height, difficulty, setProp, createGame
   } = props;
 
   return (
-    <div className={`options-container${optionsUI === 'display' ? ' fadeIn' : ' fadeOut'}`}>
+    <div className={`options ${displaySetting}`}>
       <button type="button" onClick={createGame}>Create maze</button>
       <div className="label-container">
         <Select value={width} label="Width" range={[15, 25]} setProp={value => setProp('width', value)} />
@@ -23,7 +23,7 @@ export const Options = (props) => {
 };
 
 const mapStateToProps = state => ({
-  optionsUI: state.UI.options,
+  displaySetting: state.UI.options,
   width: state.maze.width,
   height: state.maze.height,
   difficulty: state.maze.difficulty
@@ -36,7 +36,7 @@ const mapDispatchToProps = dispatch => ({
 
 
 Options.propTypes = {
-  optionsUI: PropTypes.string.isRequired,
+  displaySetting: PropTypes.string.isRequired,
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
   difficulty: PropTypes.number.isRequired,

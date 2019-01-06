@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 
 
 const Spinner = (props) => {
-  const { spinnerUI } = props;
-  return spinnerUI === 'display'
+  const { displaySetting } = props;
+  return displaySetting === 'displayed'
     ? (
       <div className="maze__spinner">
         <div />
@@ -18,11 +18,11 @@ const Spinner = (props) => {
 };
 
 const mapStateToProps = state => ({
-  spinnerUI: state.UI.spinner
+  displaySetting: state.UI.spinner
 });
 
 Spinner.propTypes = {
-  spinnerUI: PropTypes.string.isRequired
+  displaySetting: PropTypes.string.isRequired
 };
 
 export default connect(mapStateToProps, null)(Spinner);

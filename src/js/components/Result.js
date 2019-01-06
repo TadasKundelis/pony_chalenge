@@ -5,9 +5,9 @@ import { resetState } from '../actions';
 
 // add export here to export unconnected component for testing
 export const Result = (props) => {
-  const { resultUI, result, resetState } = props;
+  const { displaySetting, result, resetState } = props;
   return (
-    <div className={`result${resultUI === 'display' ? ' fadeIn' : ' fadeOut'}`}>
+    <div className={`result ${displaySetting}`}>
       <div className="result__text">{result}</div>
       <button className="result__btn" type="button" onClick={resetState}>New game</button>
     </div>
@@ -15,7 +15,7 @@ export const Result = (props) => {
 };
 
 const mapStateToProps = state => ({
-  resultUI: state.UI.result,
+  displaySetting: state.UI.result,
   result: state.maze.result
 });
 
@@ -24,7 +24,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 Result.propTypes = {
-  resultUI: PropTypes.string.isRequired,
+  displaySetting: PropTypes.string.isRequired,
   result: PropTypes.string,
   resetState: PropTypes.func.isRequired
 };
