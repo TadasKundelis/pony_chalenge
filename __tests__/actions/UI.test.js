@@ -10,7 +10,7 @@ describe('UI actions', () => {
       value
     };
     it('should create an action to update UI element', () => {
-      expect(actions.updateDisplay(el, value)).toEqual(expectedAction);
+      expect(actions.handleDisplay(el, value)).toEqual(expectedAction);
     });
   });
   describe('resetUI action creator', () => {

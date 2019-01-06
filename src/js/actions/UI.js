@@ -1,7 +1,7 @@
 import * as actionTypes from '../constants/actionTypes';
 
 
-export const updateDisplay = (el, value) => ({
+export const handleDisplay = (el, value) => ({
   type: actionTypes.UPDATE_UI,
   el,
   value
@@ -12,7 +12,7 @@ export const reset = () => ({
 });
 
 export const update = state => (dispatch) => {
-  const updateElement = ([el, value]) => dispatch(updateDisplay(el, value));
+  const updateElement = ([el, value]) => dispatch(handleDisplay(el, value));
   switch (state) {
     case 'loading':
       [
