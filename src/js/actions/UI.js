@@ -1,6 +1,5 @@
 import * as actionTypes from '../constants/actionTypes';
 
-
 export const handleDisplay = (el, value) => ({
   type: actionTypes.UPDATE_UI,
   el,
