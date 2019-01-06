@@ -11,12 +11,12 @@ describe('<Result />', () => {
   };
   const wrapper = shallow(<Result {...data} />);
   it('should render result prop text', () => {
-    expect(wrapper.find('.result').text()).toBe('won');
+    expect(wrapper.find('.result__text').text()).toBe('won');
   });
   it('should have fadeOut class if resultUI is equal to "hide"', () => {
-    data.resultUI = 'hide';
+    data.displaySetting = 'hidden';
     const wrapper = shallow(<Result {...data} />);
-    expect(wrapper.find('.fadeOut')).toHaveLength(1);
+    expect(wrapper.find('.hidden')).toHaveLength(1);
   });
   it('should call startNewGame function when "new game" button is clicked', () => {
     wrapper.find('button').simulate('click');

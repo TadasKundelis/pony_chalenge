@@ -1,11 +1,11 @@
 import * as actionTypes from '../constants/actionTypes';
 
 export const initialState = {
-  maze: 'hide',
-  options: 'display',
-  result: 'hide',
-  playBtn: 'hide',
-  spinner: 'hide'
+  maze: 'hidden',
+  options: 'displayed',
+  result: 'hidden',
+  playBtn: 'hidden',
+  spinner: 'hidden'
 };
 
 export const UIReducer = (state = initialState, action) => {

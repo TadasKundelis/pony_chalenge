@@ -16,22 +16,22 @@ export const update = state => (dispatch) => {
   switch (state) {
     case 'loading':
       [
-        ['options', 'hide'],
-        ['spinner', 'display']
+        ['options', 'hidden'],
+        ['spinner', 'displayed']
       ].forEach(updateElement);
       break;
     case 'loaded':
       [
-        ['maze', 'display'],
-        ['spinner', 'hide'],
-        ['playBtn', 'display']
+        ['maze', 'displayed'],
+        ['spinner', 'hidden'],
+        ['playBtn', 'displayed']
       ].forEach(updateElement);
       break;
     case 'playing':
-      updateElement(['playBtn', 'hide']);
+      updateElement(['playBtn', 'hidden']);
       break;
     case 'gameOver':
-      updateElement(['result', 'display']);
+      updateElement(['result', 'displayed']);
       break;
     default:
       dispatch(reset());

@@ -31,7 +31,7 @@ button {
     min-width: 100px;
     background: none;
     outline: none;
-    border: $endPointColor solid 1px;
+    border: $endPointColor solid $wallThickness;
     color: $endPointColor;
     transition: background .3s;
     cursor: pointer;
@@ -76,13 +76,13 @@ button:hover {
     position: absolute;
 }
 
-.fadeIn {
+.displayed {
     opacity: 1;
     z-index: 2;
     transition: .3s opacity;
 }
 
-.fadeOut {
+.hidden {
     opacity: 0;
     z-index: -1;
     transition: .3s opacity;
