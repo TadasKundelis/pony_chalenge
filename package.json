@@ -6,7 +6,8 @@
   "scripts": {
     "test:watch": "jest --watch",
     "test": "jest",
-    "build:dev": "webpack --progress --profile --colors",
+    "build:dev": "webpack --mode-development --progress --profile --colors",
+    "build:prod": "webpack --mode-production",
     "start": "webpack-dev-server --mode development --host 127.0.0.1 --open"
   },
   "keywords": [],
