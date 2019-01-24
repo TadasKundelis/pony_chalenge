@@ -19,7 +19,7 @@ describe('<Cell />', () => {
   it('should have CSS class cell--domokun if it is occupied by domokun', () => {
     expect(wrapper.find('.cell--domokun')).toHaveLength(1);
   });
-  it('should have CSS class "cell--northWall" if the prop walls does not include "north"', () => {
+  it('should have CSS class "cell--northWall" if the prop walls includes "north"', () => {
     expect(wrapper.find('.cell--northWall')).toHaveLength(1);
   });
   it('should not have CSS class "cell-westWall" if the prop walls does not include "west"', () => {
